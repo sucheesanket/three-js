@@ -8,11 +8,28 @@ const App = () => {
 
   const scene= new THREE.Scene()
   const cubeGeometry=new THREE.BoxGeometry(1,1,1)
-  const cubeMaterial=new THREE.MeshBasicMaterial({color:"red"})
-  const cubeMesh=new THREE.Mesh(
-    cubeGeometry,
-    cubeMaterial,
-  )
+  const cubeMaterial=new THREE.MeshBasicMaterial({color:"red",wireframe:true})
+  // const cubeMesh=new THREE.Mesh(
+  //   cubeGeometry,
+  //   cubeMaterial,
+  // )
+  // const cubeMesh2=new THREE.Mesh(
+  //   cubeGeometry,
+  //   cubeMaterial,
+  // )
+  // cubeMesh2.position.x=2
+  // const cubeMesh3=new THREE.Mesh(
+  //   cubeGeometry,
+  //   cubeMaterial,
+  // )
+  // cubeMesh3.position.x=-2
+
+  // const group=new THREE.Group()
+  // group.add(cubeMesh)
+  // group.add(cubeMesh2)
+  // group.add(cubeMesh3)
+  // scene.add(group)
+  // group.scale.x=2
 // console.log(cubeMesh);
 scene.add(cubeMesh)
 // console.log(scene);
@@ -20,6 +37,14 @@ scene.add(cubeMesh)
 // initialize the camera
 // const camera = new THREE.PerspectiveCamera( 45(field of view), width / height, 1(near), 1000(far) );
 // scene.add( camera );
+// cubeMesh.position.x=1
+cubeMesh.position.y=1
+// cubeMesh.position.x=1
+// cubeMesh.position.z=1
+// cubeMesh.scale.y=2
+cubeMesh.rotation.y= THREE.MathUtils.degToRad(90)
+const axesHelper=new THREE.AxesHelper(5)
+// cubeMesh.add(axesHelper)
 
 const camera = new THREE.PerspectiveCamera(
   57,
@@ -51,7 +76,7 @@ renderer.setSize(window.innerWidth,window.innerHeight)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))
 const controls= new OrbitControls(camera,canvas)
 controls.enableDamping=true
-controls.autoRotate=true
+// controls.autoRotate=true
 
 window.addEventListener("resize",()=>{
 
@@ -61,7 +86,20 @@ window.addEventListener("resize",()=>{
 })
 
 
+const clock=new THREE.Clock()
+let previousTime=0;
+
 const renderloop =()=>{
+  const currentTime=clock.getElapsedTime()
+  const delta=currentTime-previousTime
+  previousTime=currentTime
+  // console.log(delta);
+  cubeMesh.rotation.y+=THREE.MathUtils.degToRad(1) * delta *10
+  // cubeMesh.position.x+=0.1* delta
+  // cubeMesh.scale.x+=Math.sin(currentTime)
+  // console.log();
+  
+  
   controls.update()
   renderer.render(scene,camera)
   window.requestAnimationFrame(renderloop)
