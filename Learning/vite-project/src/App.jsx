@@ -9,6 +9,7 @@ const App = () => {
   const pane=new Pane()
 
   const scene= new THREE.Scene()
+  const textureLoader=new THREE.TextureLoader();
   const geometry=new THREE.BoxGeometry(1,1,1)
   // const material=new THREE.MeshBasicMaterial({
   //   // color: 0x00ff00,
@@ -20,12 +21,14 @@ const App = () => {
   const sphereGeometry=new THREE.SphereGeometry(0.5,32,32)
   const cylinderGeometry=new THREE.CylinderGeometry(0.5,0.5,1,32)
 
+  const textureTest=textureLoader.load('\Materials\space-cruiser-panels2-unity\space-cruiser-panels2_ao.png')
    //it can also be write as
   //  material.transparent=true
   //  material.opacity=0.5
   //  material.color=new THREE.Color(0x00ff00)
   //  material.side=THREE.DoubleSide
   const material= new THREE.MeshBasicMaterial()
+  material.map=textureTest
   const cube=new THREE.Mesh(geometry,material)
   const knot=new THREE.Mesh(torusKnotGeometry,material)
   knot.position.x=1.5;
@@ -108,6 +111,11 @@ const App = () => {
 // cubeMesh.rotation.y= THREE.MathUtils.degToRad(90)
 // const axesHelper=new THREE.AxesHelper(5)
 // cubeMesh.add(axesHelper)
+
+
+
+// console.log(textureLoader);
+
 
 const camera = new THREE.PerspectiveCamera(
   35,
